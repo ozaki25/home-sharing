@@ -1,7 +1,10 @@
 import React from 'react';
+import Signin from 'components/pages/Signin';
+import useReactRouter from 'use-react-router';
 
-function Signin() {
-  return <h1>Signin</h1>;
+function SigninContainer() {
+  const { history } = useReactRouter();
+  return <Signin history={history} />;
 }
 
-export default Signin;
+export default SigninContainer;

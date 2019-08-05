@@ -1,7 +1,10 @@
 import React from 'react';
+import Menu from 'components/pages/Menu';
+import useReactRouter from 'use-react-router';
 
-function Menu() {
-  return <h1>Menu</h1>;
+function MenuContainer() {
+  const { history } = useReactRouter();
+  return <Menu history={history} />;
 }
 
-export default Menu;
+export default MenuContainer;
