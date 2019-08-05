@@ -1,10 +1,12 @@
 import React from 'react';
 import NavigationBar from 'components/organisms/NavigationBar';
 
-function Container({ children, title, history }) {
+function Container({ children, title, back, noHeader, history }) {
   return (
     <>
-      <NavigationBar title={title} history={history} />
+      {noHeader || (
+        <NavigationBar title={title} history={history} back={back} />
+      )}
       <div>{children}</div>
     </>
   );

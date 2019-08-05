@@ -3,7 +3,7 @@ import Container from 'components/templates/Container';
 
 function Signup({ history }) {
   return (
-    <Container title="新規登録" history={history}>
+    <Container title="新規登録" history={history} back>
       <h1>Signup</h1>
     </Container>
   );

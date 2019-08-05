@@ -14,17 +14,19 @@ const styles = theme => ({
   },
 });
 
-function NavigationBar({ title, history, classes }) {
+function NavigationBar({ title, history, back, classes }) {
   return (
     <Headroom className={classes.appBar} style={{ position: 'fixed' }}>
       <AppBar position="static" color="primary">
         <Toolbar
-          style={{ paddingLeft: '0', paddingRight: '16px' }}
+          style={{ paddingLeft: back ? '0' : '16px', paddingRight: '16px' }}
           disableGutters
         >
-          <IconButton color="inherit" onClick={history.goBack}>
-            <ArrowBackIosOutlined />
-          </IconButton>
+          {back && (
+            <IconButton color="inherit" onClick={history.goBack}>
+              <ArrowBackIosOutlined />
+            </IconButton>
+          )}
           <Typography variant="h6" color="inherit" style={{ flexGrow: 1 }}>
             {title}
           </Typography>
