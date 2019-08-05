@@ -10,7 +10,8 @@
     "react-headroom": "^2.2.8",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "typeface-roboto": "^0.0.75"
+    "typeface-roboto": "^0.0.75",
+    "use-react-router": "^1.0.7"
   },
   "scripts": {
     "start": "NODE_PATH=. react-scripts start",
