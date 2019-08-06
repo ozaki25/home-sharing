@@ -8,21 +8,19 @@ function useAuthentication() {
 
   useEffect(() => {
     const user = localStorage.getItem('authUser');
-    console.log({ user });
     if (user) setAuthUser(user);
-  });
+  }, [setAuthUser]);
 
   useEffect(() => {
     const listener = firebase.onAuthUserListener(
       user => {
-        console.log({ user });
         if (authUser) return;
         localStorage.setItem('authUser', JSON.stringify(user));
         setAuthUser(user);
       },
       () => {
-        localStorage.removeItem('authUser');
-        setAuthUser(null);
+        // localStorage.removeItem('authUser');
+        // setAuthUser(null);
       },
     );
     return () => listener();
