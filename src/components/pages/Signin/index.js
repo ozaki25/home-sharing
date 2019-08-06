@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import GoogleButton from 'components/atoms/GoogleButton';
+import OverlaySpinner from 'components/molecules/OverlaySpinner';
 import SigninForm from 'components/organisms/SigninForm';
 import Container from 'components/templates/Container';
 import ROUTES from 'constants/routes';
@@ -14,7 +15,8 @@ const styles = {
 };
 
 function Signin({ history, firebase, classes }) {
-  console.log({ history, firebase, classes });
+  const [loading, setLoading] = useState(false);
+
   const signin = async ({ data: { email, pass } }) => {
     await firebase.doSignInWithEmailAndPassword(email, pass);
     history.replace(ROUTES.Menu);
@@ -29,6 +31,30 @@ function Signin({ history, firebase, classes }) {
     }
   };
 
+  const redirectResult = async () => {
+    setLoading(true);
+    const result = await firebase.auth.getRedirectResult();
+    const authUser = result.user;
+    setLoading(false);
+    if (authUser) {
+      history.replace(ROUTES.Menu);
+    }
+  };
+
+  const checkRedirect = () => {
+    const key = sessionStorage.getItem('willRedirect');
+    if (key) {
+      sessionStorage.removeItem('willRedirect');
+      redirectResult();
+    } else {
+      firebase.doSignOut();
+    }
+  };
+
+  useEffect(() => {
+    checkRedirect();
+  });
+
   return (
     <Container history={history} firebase={firebase} noHeader>
       <SigninForm onSubmit={signin} />
@@ -40,6 +66,7 @@ function Signin({ history, firebase, classes }) {
           新規登録
         </Button>
       </div>
+      <OverlaySpinner visible={loading} />
     </Container>
   );
 }
