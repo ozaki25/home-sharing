@@ -1,11 +1,14 @@
 import React from 'react';
 import Menu from 'components/pages/Menu';
 import useReactRouter from 'use-react-router';
-import { withAuthorization } from 'hoc/sessions';
+import { useFirebase } from 'hooks/useFirebase';
+import useAuthorization from 'hooks/useAuthorization';
 
 function MenuContainer() {
+  useAuthorization();
   const { history } = useReactRouter();
-  return <Menu history={history} />;
+  const firebase = useFirebase();
+  return <Menu history={history} firebase={firebase} />;
 }
 
-export default withAuthorization(MenuContainer);
+export default MenuContainer;

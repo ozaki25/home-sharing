@@ -1,16 +1,18 @@
 import React from 'react';
 import Router from 'router';
-import Firebase from 'utils/firebase';
-import FirebaseContext from 'context/firebase';
-import { withAuthentication } from 'hoc/sessions';
+import FirebaseProvider from 'hooks/useFirebase';
+import useAuthentication from 'hooks/useAuthentication';
 
-const AuthRouter = withAuthentication(Router);
+function AppRouter() {
+  useAuthentication();
+  return <Router />;
+}
 
 function App() {
   return (
-    <FirebaseContext.Provider value={new Firebase()}>
-      <AuthRouter />
-    </FirebaseContext.Provider>
+    <FirebaseProvider>
+      <AppRouter />
+    </FirebaseProvider>
   );
 }
 
