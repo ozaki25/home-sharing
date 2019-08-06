@@ -1,7 +1,7 @@
 import React from 'react';
 import Signup from 'components/pages/Signup';
 import useReactRouter from 'use-react-router';
-import { useFirebase } from 'hooks/useFirebase';
+import useFirebase from 'hooks/useFirebase';
 
 function SignupContainer() {
   const { history } = useReactRouter();

@@ -1,6 +1,7 @@
 import React from 'react';
 import Router from 'router';
-import FirebaseProvider from 'hooks/useFirebase';
+import AuthUserProvider from 'context/authUser';
+import FirebaseProvider from 'context/firebase';
 import useAuthentication from 'hooks/useAuthentication';
 
 function AppRouter() {
@@ -10,9 +11,11 @@ function AppRouter() {
 
 function App() {
   return (
-    <FirebaseProvider>
-      <AppRouter />
-    </FirebaseProvider>
+    <AuthUserProvider>
+      <FirebaseProvider>
+        <AppRouter />
+      </FirebaseProvider>
+    </AuthUserProvider>
   );
 }
 

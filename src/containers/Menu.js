@@ -1,7 +1,7 @@
 import React from 'react';
 import Menu from 'components/pages/Menu';
 import useReactRouter from 'use-react-router';
-import { useFirebase } from 'hooks/useFirebase';
+import useFirebase from 'hooks/useFirebase';
 import useAuthorization from 'hooks/useAuthorization';
 
 function MenuContainer() {

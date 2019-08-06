@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import useReactRouter from 'use-react-router';
-import { useFirebase } from 'hooks/useFirebase';
+import useFirebase from 'hooks/useFirebase';
+import useAuthUser from 'hooks/useAuthUser';
 import ROUTES from 'constants/routes';
 
-function useAuthorization({ authUser } = {}) {
+function useAuthorization() {
   const firebase = useFirebase();
+  const { authUser } = useAuthUser();
   const { history } = useReactRouter();
 
   useEffect(() => {
