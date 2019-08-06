@@ -1,10 +1,12 @@
 import React from 'react';
-import Signin from 'components/pages/Signin';
 import useReactRouter from 'use-react-router';
+import Signin from 'components/pages/Signin';
+import useFirebase from 'hooks/useFirebase';
 
 function SigninContainer() {
   const { history } = useReactRouter();
-  return <Signin history={history} />;
+  const firebase = useFirebase();
+  return <Signin history={history} firebase={firebase} />;
 }
 
 export default SigninContainer;

@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.3.1",
     "@material-ui/icons": "^4.2.1",
+    "firebase": "^6.3.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-headroom": "^2.2.8",
@@ -14,9 +15,9 @@
     "use-react-router": "^1.0.7"
   },
   "scripts": {
-    "start": "NODE_PATH=. react-scripts start",
-    "build": "NODE_PATH=. react-scripts build",
-    "test": "NODE_PATH=. react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
