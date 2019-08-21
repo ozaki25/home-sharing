@@ -10,7 +10,6 @@ function MenuContainer() {
   const { history } = useReactRouter();
   const firebase = useFirebase();
   const { authUser } = useAuthUser();
-  console.log('MenuContainer', { firebase });
   return <Menu history={history} firebase={firebase} authUser={authUser} />;
 }
 
