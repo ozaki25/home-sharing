@@ -18,8 +18,8 @@ const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
 class Firebase {
   constructor() {
     app.initializeApp(config);
-    this.emailAuthProvider = app.auth.EmailAuthProvider;
     this.auth = app.auth();
+    this.emailAuthProvider = app.auth.EmailAuthProvider;
     this.googleProvider = new app.auth.GoogleAuthProvider();
   }
 
@@ -33,9 +33,9 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
-  onAuthUserListener = (next, fallback) =>
+  onAuthStateChanged = (onChange, onError) =>
     this.auth.onAuthStateChanged(authUser =>
-      authUser ? next(authUser) : fallback(),
+      authUser ? onChange(authUser) : onError(),
     );
 }
 

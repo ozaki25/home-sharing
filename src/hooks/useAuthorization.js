@@ -1,23 +1,18 @@
 import { useEffect } from 'react';
 import useReactRouter from 'use-react-router';
 import useFirebase from 'hooks/useFirebase';
-import useAuthUser from 'hooks/useAuthUser';
 import ROUTES from 'constants/routes';
 
 function useAuthorization() {
   const firebase = useFirebase();
-  const { authUser } = useAuthUser();
   const { history } = useReactRouter();
 
   useEffect(() => {
-    const listener = firebase.onAuthUserListener(
-      user => !user && history.push(ROUTES.Signin),
-      () => {
-        if (!authUser) history.push(ROUTES.Signin);
-      },
-    );
-    return () => listener();
-  }, [firebase, history, authUser]);
+    const onChange = user => console.log({ user });
+    const onError = () => history.push(ROUTES.Signin);
+    const unsubscribe = firebase.onAuthStateChanged(onChange, onError);
+    return () => unsubscribe();
+  }, [firebase, history]);
 
   return null;
 }

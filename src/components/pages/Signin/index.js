@@ -7,7 +7,6 @@ import OverlaySpinner from 'components/molecules/OverlaySpinner';
 import SigninForm from 'components/organisms/SigninForm';
 import Container from 'components/templates/Container';
 import ROUTES from 'constants/routes';
-import useAuthUser from 'hooks/useAuthUser';
 
 const styles = {
   nonCaps: {
@@ -17,11 +16,14 @@ const styles = {
 
 function Signin({ history, firebase, classes }) {
   const [loading, setLoading] = useState(false);
-  const { setAuthUser } = useAuthUser();
 
   const signin = async ({ data: { email, pass } }) => {
-    await firebase.doSignInWithEmailAndPassword(email, pass);
-    history.replace(ROUTES.Menu);
+    try {
+      await firebase.doSignInWithEmailAndPassword(email, pass);
+      history.replace(ROUTES.Menu);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const signinWithGoogle = async () => {
@@ -36,14 +38,8 @@ function Signin({ history, firebase, classes }) {
   const redirectResult = async () => {
     setLoading(true);
     const result = await firebase.auth.getRedirectResult();
-    const authUser = result.user;
     setLoading(false);
-    if (authUser) {
-      const { uid, displayName } = authUser;
-      localStorage.setItem('authUser', JSON.stringify({ uid, displayName }));
-      setAuthUser({ uid, displayName });
-      history.replace(ROUTES.Menu);
-    }
+    if (result.user) history.replace(ROUTES.Menu);
   };
 
   const checkRedirect = () => {
@@ -58,7 +54,7 @@ function Signin({ history, firebase, classes }) {
 
   useEffect(() => {
     checkRedirect();
-  });
+  }, []);
 
   return (
     <Container history={history} firebase={firebase} noHeader>
