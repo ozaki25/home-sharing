@@ -4,27 +4,25 @@ import useAuthUser from 'hooks/useAuthUser';
 
 function useAuthentication() {
   const firebase = useFirebase();
-  const { authUser, setAuthUser } = useAuthUser();
+  const { setAuthUser } = useAuthUser();
 
   useEffect(() => {
     const user = localStorage.getItem('authUser');
-    if (user) setAuthUser(user);
+    if (user) setAuthUser(JSON.parse(user));
   }, [setAuthUser]);
 
   useEffect(() => {
-    const listener = firebase.onAuthUserListener(
-      user => {
-        if (authUser) return;
-        localStorage.setItem('authUser', JSON.stringify(user));
-        setAuthUser(user);
-      },
-      () => {
-        // localStorage.removeItem('authUser');
-        // setAuthUser(null);
-      },
-    );
-    return () => listener();
-  }, [firebase, authUser, setAuthUser]);
+    const onChange = user => {
+      localStorage.setItem('authUser', JSON.stringify(user));
+      setAuthUser(user);
+    };
+    const onError = () => {
+      localStorage.removeItem('authUser');
+      setAuthUser(null);
+    };
+    const unsubscribe = firebase.onAuthStateChanged(onChange, onError);
+    return () => unsubscribe();
+  }, [firebase, setAuthUser]);
 
   return null;
 }
