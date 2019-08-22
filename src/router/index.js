@@ -5,6 +5,7 @@ import ScrollToTop from 'router/ScrollToTop';
 import Signin from 'containers/Signin';
 import Signup from 'containers/Signup';
 import Menu from 'containers/Menu';
+import AccountSetting from 'containers/AccountSetting';
 
 function Router() {
   return (
@@ -15,6 +16,11 @@ function Router() {
           <Route path={ROUTES.Signin} exact component={Signin} />
           <Route path={ROUTES.Signup} exact component={Signup} />
           <Route path={ROUTES.Menu} exact component={Menu} />
+          <Route
+            path={ROUTES.AccountSetting}
+            exact
+            component={AccountSetting}
+          />
         </>
       </Switch>
     </BrowserRouter>

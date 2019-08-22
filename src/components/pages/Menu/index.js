@@ -9,7 +9,7 @@ function Menu({ history, firebase, authUser }) {
       firebase={firebase}
       authUser={authUser}
     >
-      {authUser ? <p>Hello {authUser.displayName} !</p> : <p>Loading...</p>}
+      <p>Hello {authUser.displayName} !</p>
     </Container>
   );
 }
