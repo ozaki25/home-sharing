@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Headroom from 'react-headroom';
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core';
 import { ArrowBackIosOutlined } from '@material-ui/icons';
 import { withStyles } from '@material-ui/core/styles';
+import CharIcon from 'components/atoms/CharIcon';
+import SideMenu from 'components/organisms/SideMenu';
 
 const styles = theme => ({
   appBar: {
@@ -14,7 +16,10 @@ const styles = theme => ({
   },
 });
 
-function NavigationBar({ title, history, back, classes }) {
+function NavigationBar({ title, authUser, back, history, firebase, classes }) {
+  const [open, setOpen] = useState(false);
+  const openSideMenu = () => setOpen(true);
+  const closeSideMenu = () => setOpen(false);
   return (
     <Headroom className={classes.appBar} style={{ position: 'fixed' }}>
       <AppBar position="static" color="primary">
@@ -30,7 +35,23 @@ function NavigationBar({ title, history, back, classes }) {
           <Typography variant="h6" color="inherit" style={{ flexGrow: 1 }}>
             {title}
           </Typography>
+          {authUser && (
+            <CharIcon
+              name={authUser.displayName}
+              onClick={openSideMenu}
+              small
+            />
+          )}
         </Toolbar>
+        {authUser && (
+          <SideMenu
+            open={open}
+            onOpen={openSideMenu}
+            onClose={closeSideMenu}
+            signout={firebase.doSignOut}
+            history={history}
+          />
+        )}
       </AppBar>
     </Headroom>
   );
