@@ -12,9 +12,9 @@ function useAuthentication() {
   }, [setAuthUser]);
 
   useEffect(() => {
-    const onChange = user => {
-      localStorage.setItem('authUser', JSON.stringify(user));
-      setAuthUser(user);
+    const onChange = ({ displayName, uid }) => {
+      localStorage.setItem('authUser', JSON.stringify({ displayName, uid }));
+      setAuthUser({ displayName, uid });
     };
     const onError = () => {
       localStorage.removeItem('authUser');

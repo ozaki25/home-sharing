@@ -1,14 +1,15 @@
 import React from 'react';
 import Container from 'components/templates/Container';
 
-function Menu({ history, authUser }) {
-  const { uid, displayName } = authUser || {};
+function Menu({ history, firebase, authUser }) {
   return (
-    <Container title="メニュー" history={history}>
-      <h1>Menu</h1>
-      <p>
-        {uid}: {displayName}
-      </p>
+    <Container
+      title="ホーム"
+      history={history}
+      firebase={firebase}
+      authUser={authUser}
+    >
+      {authUser ? <p>Hello {authUser.displayName} !</p> : <p>Loading...</p>}
     </Container>
   );
 }
