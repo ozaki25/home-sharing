@@ -1,18 +1,18 @@
 import React from 'react';
 import NavigationBar from 'components/organisms/NavigationBar';
+import { Container as MUIContainter } from '@material-ui/core';
 
 function Container({
   children,
   title,
   back,
   noHeader,
-  noPadding,
   authUser,
   history,
   firebase,
 }) {
   return (
-    <>
+    <MUIContainter maxWidth="md">
       {noHeader || (
         <NavigationBar
           title={title}
@@ -22,10 +22,8 @@ function Container({
           back={back}
         />
       )}
-      <div style={{ padding: noPadding ? 'inherit' : '5px 10px' }}>
-        {children}
-      </div>
-    </>
+      {children}
+    </MUIContainter>
   );
 }
 
